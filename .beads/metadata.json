@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "Polarize",
+  "project_id": "6421856d-d499-4c54-9346-0b20b64643f6"
+}
