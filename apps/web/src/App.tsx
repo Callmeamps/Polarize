@@ -11,6 +11,7 @@ import type { IntegrationTab } from './components/IntegrationsView';
 import { MarketplaceView } from './components/MarketplaceView';
 import { PluginDetailView } from './components/PluginDetailView';
 import type { CreateInput } from './components/NewProjectPanel';
+import { ImageEditor } from './components/image-editor/ImageEditor';
 import { MemoryToast } from './components/MemoryToast';
 import { PetOverlay } from './components/pet/PetOverlay';
 import { migrateCustomPetAtlas } from './components/pet/pets';
@@ -1151,6 +1152,49 @@ export function App() {
     appMain = <MarketplaceView />;
   } else if (route.kind === 'marketplace-detail') {
     appMain = <PluginDetailView pluginId={route.pluginId} />;
+  } else if (route.kind === 'image-editor') {
+    const editorProject = projects.find((p) => p.id === route.projectId);
+    appMain = editorProject ? (
+      <ImageEditor project={editorProject} />
+    ) : (
+      <EntryView
+        skills={enabledSkills}
+        designTemplates={enabledDesignTemplates}
+        designSystems={enabledDS}
+        projects={projects}
+        templates={templates}
+        onDeleteTemplate={handleDeleteTemplate}
+        promptTemplates={promptTemplates}
+        defaultDesignSystemId={config.designSystemId}
+        agents={agents}
+        config={config}
+        integrationInitialTab={integrationInitialTab}
+        composioConfigLoading={composioConfigLoading}
+        daemonLive={daemonLive}
+        onModeChange={handleModeChange}
+        onAgentChange={handleAgentChange}
+        onAgentModelChange={handleAgentModelChange}
+        onApiProtocolChange={handleApiProtocolChange}
+        onApiModelChange={handleApiModelChange}
+        onThemeChange={handleThemeChange}
+        skillsLoading={skillsLoading}
+        designSystemsLoading={dsLoading}
+        projectsLoading={projectsLoading}
+        promptTemplatesLoading={promptTemplatesLoading}
+        onCreateProject={handleCreateProject}
+        onCreatePluginShareProject={handleCreatePluginShareProject}
+        onImportClaudeDesign={handleImportClaudeDesign}
+        onImportFolder={handleImportFolder}
+        onImportFolderResponse={handleImportFolderResponse}
+        onOpenProject={handleOpenProject}
+        onOpenLiveArtifact={handleOpenLiveArtifact}
+        onDeleteProject={handleDeleteProject}
+        onRenameProject={handleRenameProject}
+        onChangeDefaultDesignSystem={handleChangeDefaultDesignSystem}
+        onPersistComposioKey={handleConfigPersistComposioKey}
+        onOpenSettings={openSettings}
+      />
+    );
   } else if (activeProject) {
     appMain = (
       <ProjectView

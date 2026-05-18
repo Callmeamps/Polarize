@@ -2812,17 +2812,27 @@ export function ProjectView({
         onBack={onBack}
         backLabel={t('project.backToProjects')}
         actions={(
-          <AvatarMenu
-            config={config}
-            agents={agents}
-            daemonLive={daemonLive}
-            onModeChange={onModeChange}
-            onAgentChange={onAgentChange}
-            onAgentModelChange={onAgentModelChange}
-            onOpenSettings={onOpenSettings}
-            onRefreshAgents={onRefreshAgents}
-            onBack={onBack}
-          />
+          <>
+            <button
+              type="button"
+              className="button-secondary"
+              style={{ marginRight: 8, padding: '6px 12px', fontSize: 12 }}
+              onClick={() => navigate({ kind: 'image-editor', projectId: project.id })}
+            >
+              Image Editor
+            </button>
+            <AvatarMenu
+              config={config}
+              agents={agents}
+              daemonLive={daemonLive}
+              onModeChange={onModeChange}
+              onAgentChange={onAgentChange}
+              onAgentModelChange={onAgentModelChange}
+              onOpenSettings={onOpenSettings}
+              onRefreshAgents={onRefreshAgents}
+              onBack={onBack}
+            />
+          </>
         )}
       >
         <div className="app-project-title">

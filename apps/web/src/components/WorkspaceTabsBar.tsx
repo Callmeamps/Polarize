@@ -89,6 +89,17 @@ function tabFromRoute(route: Route, timestamp = Date.now()): WorkspaceChromeTab 
       lastActiveAt: timestamp,
     };
   }
+  if (route.kind === 'image-editor') {
+    return {
+      id: `editor:${route.projectId}:${nowId()}`,
+      kind: 'project',
+      projectId: route.projectId,
+      conversationId: null,
+      fileName: null,
+      createdAt: timestamp,
+      lastActiveAt: timestamp,
+    };
+  }
   return createEntryTab(route.view, timestamp);
 }
 

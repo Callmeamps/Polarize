@@ -33,7 +33,8 @@ export type Route =
       fileName: string | null;
     }
   | { kind: 'marketplace' }
-  | { kind: 'marketplace-detail'; pluginId: string };
+  | { kind: 'marketplace-detail'; pluginId: string }
+  | { kind: 'image-editor'; projectId: string };
 
 export function parseRoute(pathname: string): Route {
   const parts = pathname.replace(/\/+$/, '').split('/').filter(Boolean);
@@ -90,6 +91,12 @@ export function parseRoute(pathname: string): Route {
     }
     return { kind: 'marketplace' };
   }
+  if (parts[0] === 'editor') {
+    if (parts[1]) {
+      return { kind: 'image-editor', projectId: decodeURIComponent(parts[1]) };
+    }
+    return { kind: 'home', view: 'home' };
+  }
   return { kind: 'home', view: 'home' };
 }
 
@@ -104,6 +111,7 @@ export function buildPath(route: Route): string {
   }
   if (route.kind === 'marketplace') return '/marketplace';
   if (route.kind === 'marketplace-detail') return `/marketplace/${encodeURIComponent(route.pluginId)}`;
+  if (route.kind === 'image-editor') return `/editor/${encodeURIComponent(route.projectId)}`;
   const id = encodeURIComponent(route.projectId);
   const file = route.fileName
     ? route.fileName.split('/').map((s) => encodeURIComponent(s)).join('/')
