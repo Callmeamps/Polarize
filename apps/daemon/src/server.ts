@@ -1,3 +1,4 @@
+import { htmlToImageRoute } from './html-to-image-route.js';
 // @ts-nocheck
 import type { DesktopExportPdfInput, DesktopExportPdfResult } from '@open-design/sidecar-proto';
 import express from 'express';
@@ -3812,8 +3813,14 @@ export async function startServer({
     conversations: conversationDeps,
     research: researchDeps,
   });
+  // HTML to Image conversion endpoint
+  app.post('/api/projects/:id/render/image', (req, res) => {
+    htmlToImageRoute(req, res, { db, resolvedPortRef, isLocalSameOrigin });
+  });
+
 
   app.delete('/api/projects/:id', async (req, res) => {
+
     try {
       dbDeleteProject(db, req.params.id);
       await removeProjectDir(PROJECTS_DIR, req.params.id).catch(() => {});
