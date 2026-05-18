@@ -34,7 +34,8 @@ export type Route =
     }
   | { kind: 'marketplace' }
   | { kind: 'marketplace-detail'; pluginId: string }
-  | { kind: 'image-editor'; projectId: string };
+  | { kind: 'image-editor'; projectId: string }
+  | { kind: 'grapesjs-editor'; projectId: string; editorType: 'web' | 'email' | 'document' };
 
 export function parseRoute(pathname: string): Route {
   const parts = pathname.replace(/\/+$/, '').split('/').filter(Boolean);
@@ -97,6 +98,13 @@ export function parseRoute(pathname: string): Route {
     }
     return { kind: 'home', view: 'home' };
   }
+  if (parts[0] === 'grapesjs') {
+    if (parts[1] && parts[2]) {
+      const editorType = parts[1] as 'web' | 'email' | 'document';
+      return { kind: 'grapesjs-editor', projectId: decodeURIComponent(parts[2]), editorType };
+    }
+    return { kind: 'home', view: 'home' };
+  }
   return { kind: 'home', view: 'home' };
 }
 
@@ -112,6 +120,7 @@ export function buildPath(route: Route): string {
   if (route.kind === 'marketplace') return '/marketplace';
   if (route.kind === 'marketplace-detail') return `/marketplace/${encodeURIComponent(route.pluginId)}`;
   if (route.kind === 'image-editor') return `/editor/${encodeURIComponent(route.projectId)}`;
+  if (route.kind === 'grapesjs-editor') return `/grapesjs/${route.editorType}/${encodeURIComponent(route.projectId)}`;
   const id = encodeURIComponent(route.projectId);
   const file = route.fileName
     ? route.fileName.split('/').map((s) => encodeURIComponent(s)).join('/')

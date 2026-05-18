@@ -100,6 +100,17 @@ function tabFromRoute(route: Route, timestamp = Date.now()): WorkspaceChromeTab 
       lastActiveAt: timestamp,
     };
   }
+  if (route.kind === 'grapesjs-editor') {
+    return {
+      id: `grapesjs:${route.editorType}:${route.projectId}:${nowId()}`,
+      kind: 'project',
+      projectId: route.projectId,
+      conversationId: null,
+      fileName: null,
+      createdAt: timestamp,
+      lastActiveAt: timestamp,
+    };
+  }
   return createEntryTab(route.view, timestamp);
 }
 

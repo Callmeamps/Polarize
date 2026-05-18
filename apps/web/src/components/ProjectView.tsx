@@ -2821,6 +2821,30 @@ export function ProjectView({
             >
               Image Editor
             </button>
+            <button
+              type="button"
+              className="button-secondary"
+              style={{ marginRight: 8, padding: '6px 12px', fontSize: 12 }}
+              onClick={() => navigate({ kind: 'grapesjs-editor', projectId: project.id, editorType: 'web' })}
+            >
+              Website Builder
+            </button>
+            <button
+              type="button"
+              className="button-secondary"
+              style={{ marginRight: 8, padding: '6px 12px', fontSize: 12 }}
+              onClick={() => navigate({ kind: 'grapesjs-editor', projectId: project.id, editorType: 'email' })}
+            >
+              Email Template
+            </button>
+            <button
+              type="button"
+              className="button-secondary"
+              style={{ marginRight: 8, padding: '6px 12px', fontSize: 12 }}
+              onClick={() => navigate({ kind: 'grapesjs-editor', projectId: project.id, editorType: 'document' })}
+            >
+              Document Builder
+            </button>
             <AvatarMenu
               config={config}
               agents={agents}
