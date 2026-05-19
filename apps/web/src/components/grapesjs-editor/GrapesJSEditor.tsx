@@ -15,34 +15,70 @@ export function GrapesJSEditor({ project, editorType = 'web' }: GrapesJSEditorPr
     const initEditor = async () => {
       if (!editorRef.current) return;
       
-      // Clear any existing content
-      editorRef.current.innerHTML = '';
-      editorRef.current.style.height = '100vh';
-      
       try {
         // Import the SDK
         const grapesjs = await import('@grapesjs/studio-sdk');
         
-        // Initialize the editor with a simple configuration
-        // In a real implementation, this would be more complex
-        editorRef.current.innerHTML = `
-          <div style="padding: 20px; color: #fff; background: #1a1a1a; height: 100%;">
-            <h2>GrapesJS ${editorType} Editor</h2>
-            <p>Editor would load here. Integration with full GrapesJS Studio SDK would go here.</p>
-            <p>Project: ${project.name}</p>
-            <p>Editor Type: ${editorType}</p>
-          </div>
-        `;
+        // Initialize the editor
+        const editor = await grapesjs.createStudioEditor({
+          // We'll use a demo license key for now
+          licenseKey: 'DEMO_LOCALHOST_KEY',
+          
+          // Root element on which to mount the editor
+          root: editorRef.current,
+          
+          // Default editor theme
+          theme: 'dark',
+          
+          // Project configuration
+          project: {
+            type: editorType
+          },
+          
+          // Storage configuration
+          storage: {
+            type: 'self',
+            onSave: async ({ project }: { project: any }) => {
+              // In a real implementation, this would save to Polarize's file system
+              console.log('Saving project:', project);
+            },
+            onLoad: async () => {
+              // In a real implementation, this would load from Polarize's file system
+              console.log('Loading project');
+              return { project: {} };
+            },
+            autosaveChanges: 100,
+            autosaveIntervalMs: 10000
+          },
+          
+          // Assets configuration
+          assets: {
+            storageType: 'self',
+            onUpload: async ({ files }: { files: File[] }) => {
+              // In a real implementation, this would upload to Polarize's asset system
+              console.log('Uploading files:', files);
+              return [];
+            },
+            onDelete: async ({ assets }: { assets: any[] }) => {
+              // In a real implementation, this would delete assets from Polarize's system
+              console.log('Deleting assets:', assets);
+            }
+          },
+          
+          // Callback triggered once the editor is ready
+          onReady: ({ editor }: { editor: any }) => {
+            console.log('Editor is ready:', editor);
+          },
+          
+          // Callback triggered on each update in the editor project
+          onUpdate: (projectData: any) => {
+            console.log('Project updated:', projectData);
+          }
+        });
+        
+        editorInstanceRef.current = editor;
       } catch (error) {
         console.error('Failed to initialize GrapesJS editor:', error);
-        editorRef.current.innerHTML = `
-          <div style="padding: 20px; color: #fff; background: #1a1a1a; height: 100%;">
-            <h2>GrapesJS Editor</h2>
-            <p>Error loading editor. Please check console for details.</p>
-            <p>Project: ${project.name}</p>
-            <p>Editor Type: ${editorType}</p>
-          </div>
-        `;
       }
     };
 
@@ -54,7 +90,7 @@ export function GrapesJSEditor({ project, editorType = 'web' }: GrapesJSEditorPr
         console.log('Cleaning up editor instance');
       }
     };
-  }, [editorType, project.name]);
+  }, [editorType]);
 
   return (
     <div 
