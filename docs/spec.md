@@ -140,3 +140,35 @@ In short: Claude Design is a product; OD is a **substrate**.
 - **Skill trust model.** Skills can shell out via the agent. We should at minimum warn on install, and probably sandbox the agent's cwd to the project directory. Claude Code's permission mode handles this for us if we use it; Codex is looser. Needs a per-adapter note.
 
 These go on the roadmap as Phase 0 discovery items.
+
+## 11. Visual Design Tools
+
+Polarize extends the Open Design platform with advanced visual design capabilities that provide direct user control over design creation:
+
+### HTML-to-Image API
+A programmatic API for converting HTML content to image formats using headless browser technology, accessible at:
+```
+POST /api/projects/:id/render/image
+```
+
+### Image Editor
+A WYSIWYG Image Editor with layer-based editing system featuring:
+- Support for multiple layer types (rectangle, text, image, ellipse, canvas, group)
+- Real-time preview and editing
+- CSS filter support (blur, drop shadows, color adjustments)
+- Keyboard shortcuts for efficient editing
+
+### GrapesJS Studio SDK
+Professional website, email, and document building capabilities through drag-and-drop interface:
+- Website Builder for full website design
+- Email Template Builder for cross-client email designs
+- Document Builder for professional document creation
+
+### Integration with Project System
+All visual design tools are seamlessly integrated with Polarize's project system, providing:
+- Auto-save: Changes automatically saved to project
+- Version History: Access previous versions of designs
+- Asset Management: Import and manage project assets
+- Export Options: Multiple export formats available
+
+These tools integrate seamlessly with the project system and provide both novice and experienced designers with powerful capabilities for creating professional visual content.
