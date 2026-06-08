@@ -1,3 +1,2 @@
-export const init = () => {
-  console.log("Image Editor initialized");
-};
+export { CanvasWorkspace, type CanvasViewport, type CanvasWorkspaceProps } from "./CanvasWorkspace";
+export { Layer, type LayerProps } from "./Layer";

@@ -137,6 +137,40 @@ importers:
         specifier: ^2.1.8
         version: 2.1.9(@types/node@24.12.2)(jsdom@29.1.1)(lightningcss@1.32.0)
 
+  apps/image-editor:
+    dependencies:
+      '@open-design/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
+      '@open-design/platform':
+        specifier: workspace:*
+        version: link:../../packages/platform
+      '@open-design/sidecar':
+        specifier: workspace:*
+        version: link:../../packages/sidecar
+      '@open-design/sidecar-proto':
+        specifier: workspace:*
+        version: link:../../packages/sidecar-proto
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@types/node':
+        specifier: ^20.17.10
+        version: 20.19.39
+      '@types/react':
+        specifier: ^18.3.3
+        version: 18.3.28
+      '@types/react-dom':
+        specifier: ^18.3.0
+        version: 18.3.7(@types/react@18.3.28)
+      typescript:
+        specifier: ^5.6.3
+        version: 5.9.3
+
   apps/landing-page:
     dependencies:
       '@astrojs/rss':
